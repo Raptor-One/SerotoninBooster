@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Serotonin Booster</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #content {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div id="content" onclick="nextContent()"></div>
+
+<script>
+    const preCacheSize = 3;
+
+    let contentDiv = document.getElementById( "content" );
+    const doggosContentUrl = 'https://random.dog/doggos';
+    const doggosBaseUrl = 'https://random.dog/';
+    let doggosImageList;
+
+    const contentSources = [ loadDoggo ];
+
+    nextContent();
+
+    function nextContent()
+    {
+        let sourceIndex = Math.floor( Math.random() * contentSources.length );
+        contentSources[ sourceIndex ]();
+    }
+
+
+    function loadContentDiv( src )
+    {
+        // contentDiv.innerHTML = '';
+        let srcLower = src.toLowerCase();
+        if( srcLower.match( /(gif)|(png)|(jpg)|(jpeg)$/ ) )
+        {
+            let img = document.createElement( 'img' );
+            img.src = src;
+            img.className = 'hidden';
+            if( contentDiv.childElementCount >= preCacheSize)
+                contentDiv.firstChild.remove()
+            contentDiv.appendChild( img );
+            contentDiv.firstElementChild.className = '';
+            if( contentDiv.childElementCount < preCacheSize )
+                nextContent();
+        } else
+        {
+            console.log( "Don't know how to display this content type: " + src );
+            nextContent();
+        }
+    }
+
+
+    function loadDoggo()
+    {
+        if( doggosImageList === undefined )
+            getDoggoList( loadDoggo );
+        else
+        {
+            let selectedIndex = Math.floor( Math.random() * doggosImageList.length );
+            loadContentDiv( doggosBaseUrl + doggosImageList[ selectedIndex ] );
+        }
+    }
+
+    function getDoggoList( callback )
+    {
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = function()
+        {
+            if( this.readyState === 4 && this.status === 200 )
+            {
+                doggosImageList = JSON.parse( req.response );
+                if( callback !== undefined ) callback();
+            }
+        };
+        req.open( "GET", doggosContentUrl, true );
+        req.send();
+    }
+
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@
         body {
             margin: 0;
             padding: 0;
+            background-color: #222;
         }
 
         #content {
@@ -36,8 +37,29 @@
     const doggosContentUrl = 'https://random.dog/doggos';
     const doggosBaseUrl = 'https://random.dog/';
     let doggosImageList;
+    let customList = [
+        'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/lionel-animals-to-follow-on-instagram-1568319926.jpg',
+        'https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1145794687.jpg',
+        'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cute-baby-animals-1558535060.jpg',
+        'https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGFuaW1hbHxlbnwwfHwwfHw%3D&w=1000&q=80',
+        'https://i1.wp.com/www.dailycal.org/assets/uploads/2019/10/animals_wikimedia_cc-900x580.jpg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8GFH_nJvOaFnWwPmi1ECVEuFiSuL3i6ELr68HatZ6z6uGXsHdLbYKM5_dQoUTqm2ZTwA&usqp=CAU',
+        'https://listproducer.com/wp-content/uploads/2014/10/cute.jpg',
+        'https://cdn.statically.io/img/blazepress.com/.image/c_fit,h_600,w_600/MTI4OTk1MjI3NjE5ODgwOTMw/1.jpg?quality=100&f=auto',
+        'https://static.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-2.jpg',
+        'https://compote.slate.com/images/73f0857e-2a1a-4fea-b97a-bd4c241c01f5.jpg',
+        'https://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg?width=982&height=726&auto=webp&quality=75',
+        'https://pbs.twimg.com/profile_images/841126482151911426/MZ-7AaQh_400x400.jpg',
+        'https://sites.psu.edu/siowfa16/files/2016/09/baby-seal-29vsgyf.jpg',
+        'https://bestlifeonline.com/wp-content/uploads/sites/3/2019/03/baby-tiger.jpg',
+        'https://images.saymedia-content.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTczOTgyMzc1NjE5ODY0NDQz/cute-pet-names.jpg',
+        'https://i.pinimg.com/originals/0d/0c/fa/0d0cfa9f7deb29c851924771a616aca4.jpg',
+        'https://images.pexels.com/photos/50577/hedgehog-animal-baby-cute-50577.jpeg',
+        'https://static.boredpanda.com/blog/wp-content/org_uploads/2014/06/none581__700.jpg',
+        'https://img.theculturetrip.com/450x/smart/wp-content/uploads/2018/02/sugar-glider--alessandro-di-graziawikimedia-commons.jpg',
+    ]
 
-    const contentSources = [ loadDoggo ];
+    const contentSources = [ loadDoggo, loadCustom ];
 
     nextContent();
 
@@ -69,6 +91,12 @@
         }
     }
 
+    function loadCustom()
+    {
+        let imgIndex = Math.floor( Math.random() * customList.length );
+        loadContentDiv( customList[ imgIndex ] );
+
+    }
 
     function loadDoggo()
     {

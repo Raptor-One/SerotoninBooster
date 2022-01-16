@@ -108,6 +108,28 @@
         'https://images.pexels.com/photos/50577/hedgehog-animal-baby-cute-50577.jpeg',
         'https://static.boredpanda.com/blog/wp-content/org_uploads/2014/06/none581__700.jpg',
         'https://img.theculturetrip.com/450x/smart/wp-content/uploads/2018/02/sugar-glider--alessandro-di-graziawikimedia-commons.jpg',
+        'https://static.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-10.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-8.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-7.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-5.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-3.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-9.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-11.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-13.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-14.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-17.jpg',
+        'https://justsomething.co/wp-content/uploads/2014/04/most-adorable-animals-18.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-3.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-5.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-6.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-8.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-9.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-12.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-14.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-23.jpg',
+        'https://www.boredpanda.com/blog/wp-content/uuuploads/cute-baby-animals/cute-baby-animals-24.jpg',
+        'https://petkeen.com/wp-content/uploads/2020/07/duckling-in-palm-of-hand_shutterstock_Plus69-scaled.jpg',
+        'https://static.boredpanda.com/blog/wp-content/uploads/2019/10/wholesome-cute-duck-pics-fb77.png',
     ]
 
     // Probability adjusted options
@@ -122,6 +144,7 @@
 
     // Code
     nextContent();
+    sendMoreSerotoninAnalyticsEvent(); // initial serotonin
 
     function nextContent()
     {
@@ -141,7 +164,7 @@
             if( contentDiv.childElementCount >= preCacheSize )
             {
                 contentDiv.firstChild.remove()
-                sentAnalyticsEvent();
+                sendMoreSerotoninAnalyticsEvent();
             }
             contentDiv.appendChild( img );
             contentDiv.firstElementChild.className = '';
@@ -197,7 +220,7 @@
         return Math.floor( Math.random() * exclusiveLimit );
     }
 
-    function sentAnalyticsEvent()
+    function sendMoreSerotoninAnalyticsEvent()
     {
         try
         {

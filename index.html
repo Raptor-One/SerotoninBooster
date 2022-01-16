@@ -31,7 +31,7 @@
             left: 50%;
             transform: translate(-50%, 0);
             border-radius: 15px;
-            background: linear-gradient(45deg, #5aa11f, #42bda0);
+            background: linear-gradient(45deg, #579b1e, #41b99d);
             padding: 20px;
             filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
             color: #eee;
@@ -59,6 +59,20 @@
             display: none;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J3ZH4WHGKY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag()
+        {
+            dataLayer.push( arguments );
+        }
+
+        gtag( 'js', new Date() );
+
+        gtag( 'config', 'G-J3ZH4WHGKY' );
+    </script>
 </head>
 <body>
 <div id="intro-popup">Click anywhere for more serotonin. Enjoy :)</div>
@@ -125,7 +139,10 @@
             img.src = src;
             img.className = 'hidden';
             if( contentDiv.childElementCount >= preCacheSize )
+            {
                 contentDiv.firstChild.remove()
+                sentAnalyticsEvent();
+            }
             contentDiv.appendChild( img );
             contentDiv.firstElementChild.className = '';
             if( contentDiv.childElementCount < preCacheSize )
@@ -146,7 +163,7 @@
     function loadCat()
     {
         // to make sure not to cache previous image since it's the same url
-        loadContentDiv( catsBaseUrl + (catCounter++) );
+        loadContentDiv( catsBaseUrl + ( catCounter++ ) );
     }
 
     function loadDoggo()
@@ -178,6 +195,17 @@
     function randomBetween( exclusiveLimit )
     {
         return Math.floor( Math.random() * exclusiveLimit );
+    }
+
+    function sentAnalyticsEvent()
+    {
+        try
+        {
+            gtag( 'event', 'more_serotonin' );
+        } catch( e )
+        {
+            console.error( e );
+        }
     }
 
 </script>

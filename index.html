@@ -10,6 +10,40 @@
             background-color: #222;
         }
 
+        @keyframes drop-down {
+            0% {
+                top: -100px;
+            }
+            25% {
+                top: 50px;
+            }
+            75% {
+                top: 50px;
+            }
+            100% {
+                top: -100px;
+            }
+        }
+
+        #intro-popup {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            border-radius: 15px;
+            background: linear-gradient(45deg, #5aa11f, #42bda0);
+            padding: 20px;
+            filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
+            color: #eee;
+            font-size: 20pt;
+            font-family: sans-serif;
+            font-weight: bold;
+            width: max-content;
+
+            animation-name: drop-down;
+            animation-duration: 4s;
+        }
+
         #content {
             width: 100vw;
             height: 100vh;
@@ -24,19 +58,22 @@
         .hidden {
             display: none;
         }
-
     </style>
 </head>
 <body>
+<div id="intro-popup">Click anywhere for more serotonin. Enjoy :)</div>
 <div id="content" onclick="nextContent()"></div>
 
 <script>
+    // Define how many imagines to have loaded at a time so that next image can be shown without any loading artifacts
     const preCacheSize = 3;
 
     let contentDiv = document.getElementById( "content" );
     const doggosContentUrl = 'https://random.dog/doggos';
     const doggosBaseUrl = 'https://random.dog/';
     let doggosImageList;
+    const catsBaseUrl = 'https://cataas.com/cat/cute?d=';
+    let catCounter = 0;
     let customList = [
         'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/lionel-animals-to-follow-on-instagram-1568319926.jpg',
         'https://www.rd.com/wp-content/uploads/2021/04/GettyImages-1145794687.jpg',
@@ -58,15 +95,23 @@
         'https://static.boredpanda.com/blog/wp-content/org_uploads/2014/06/none581__700.jpg',
         'https://img.theculturetrip.com/450x/smart/wp-content/uploads/2018/02/sugar-glider--alessandro-di-graziawikimedia-commons.jpg',
     ]
-    let catsBaseUrl = 'https://cataas.com/cat/cute?d=';
 
+    // Probability adjusted options
     const contentSources = [ loadDoggo, loadDoggo, loadDoggo, loadDoggo, loadCat, loadCat, loadCat, loadCat, loadCustom ];
 
+    // Credits
+    console.log( "Sources:" );
+    console.log( " - Doggo pics: " + doggosBaseUrl );
+    console.log( " - Cat pics: https://cataas.com/" );
+    console.log( " - Other misc:" );
+    console.log( customList );
+
+    // Code
     nextContent();
 
     function nextContent()
     {
-        let sourceIndex = Math.floor( Math.random() * contentSources.length );
+        let sourceIndex = randomBetween( contentSources.length );
         contentSources[ sourceIndex ]();
     }
 
@@ -74,12 +119,12 @@
     {
         // contentDiv.innerHTML = '';
         let srcLower = src.toLowerCase();
-        if( srcLower.match( /(cute)|(gif)|(png)|(jpg)|(jpeg)$/ ) )
+        if( srcLower.match( /(cute)|((gif)|(png)|(jpg)|(jpeg))$/ ) )
         {
             let img = document.createElement( 'img' );
             img.src = src;
             img.className = 'hidden';
-            if( contentDiv.childElementCount >= preCacheSize)
+            if( contentDiv.childElementCount >= preCacheSize )
                 contentDiv.firstChild.remove()
             contentDiv.appendChild( img );
             contentDiv.firstElementChild.className = '';
@@ -94,15 +139,14 @@
 
     function loadCustom()
     {
-        let imgIndex = Math.floor( Math.random() * customList.length );
+        let imgIndex = randomBetween( customList.length );
         loadContentDiv( customList[ imgIndex ] );
-
     }
 
     function loadCat()
     {
         // to make sure not to cache previous image since it's the same url
-        loadContentDiv( catsBaseUrl + Math.floor(Math.random() * 10000));
+        loadContentDiv( catsBaseUrl + (catCounter++) );
     }
 
     function loadDoggo()
@@ -111,7 +155,7 @@
             getDoggoList( loadDoggo );
         else
         {
-            let selectedIndex = Math.floor( Math.random() * doggosImageList.length );
+            let selectedIndex = randomBetween( doggosImageList.length );
             loadContentDiv( doggosBaseUrl + doggosImageList[ selectedIndex ] );
         }
     }
@@ -129,6 +173,11 @@
         };
         req.open( "GET", doggosContentUrl, true );
         req.send();
+    }
+
+    function randomBetween( exclusiveLimit )
+    {
+        return Math.floor( Math.random() * exclusiveLimit );
     }
 
 </script>

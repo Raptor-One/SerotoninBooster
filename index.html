@@ -58,7 +58,7 @@
         'https://static.boredpanda.com/blog/wp-content/org_uploads/2014/06/none581__700.jpg',
         'https://img.theculturetrip.com/450x/smart/wp-content/uploads/2018/02/sugar-glider--alessandro-di-graziawikimedia-commons.jpg',
     ]
-    let catsBaseUrl = 'https://cataas.com/cat/cute';
+    let catsBaseUrl = 'https://cataas.com/cat/cute?d=';
 
     const contentSources = [ loadDoggo, loadDoggo, loadDoggo, loadDoggo, loadCat, loadCat, loadCat, loadCat, loadCustom ];
 
@@ -101,7 +101,8 @@
 
     function loadCat()
     {
-        loadContentDiv( catsBaseUrl );
+        // to make sure not to cache previous image since it's the same url
+        loadContentDiv( catsBaseUrl + Math.floor(Math.random() * 10000));
     }
 
     function loadDoggo()
